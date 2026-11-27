@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bedemariam Daniel Haile Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Noto+Sans+Ethiopic:wght@400;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE  occasion: a planning engineer's monograph, bold like an architecture studio site
+   IDEA   the white massing model on a studio table, read against a Swiss timetable of programmes
+   PICTURE a live 3D model table of every project; click a project and the camera walks to it
+   COLOUR white, black, signal red for critical path and delay; night #0e0e0e
+   TYPE   Archivo wide 800 display + Archivo text
+   LAYOUT model full-bleed with title in its quiet corner; info sheet docked right (below on phones); timetable bands after */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0e0e0e);--ink:light-dark(#0b0b0b,#f2f2f2);--mute:light-dark(#5f5f5f,#a3a3a3);--line:light-dark(#d9d9d9,#2c2c2c);--soft:light-dark(#f3f3f3,#171717);--red:light-dark(#e4002b,#ff3355);--table:light-dark(#ececec,#141414)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,'Noto Sans Ethiopic',system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+.band{padding-block:clamp(36px,5vw,80px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center;padding:12px max(5vw,16px)}
+nav b{font-stretch:112%;font-weight:800;margin-right:auto;letter-spacing:-.01em}
+nav a{text-decoration:none;font-size:15px;padding:6px 0}
+nav a:hover{color:var(--red)}
+h1,h2,h3{font-stretch:112%;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,4.8vw,70px)}
+h2{font-size:clamp(30px,4vw,50px);margin-bottom:14px}
+h3{font-size:clamp(21px,2.2vw,26px)}
+p{margin:.5em 0}
+.lede{font-size:clamp(17px,1.6vw,20px);max-width:38em}
+.mute{color:var(--mute)}
+.red{color:var(--red)}
+.hero{position:relative;background:var(--table);border-bottom:6px solid var(--ink)}
+.stage{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);height:min(78svh,780px);min-height:520px}
+.view{position:relative}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+#gl:active{cursor:grabbing}
+.title{align-self:center;padding:32px 24px 32px max(5vw,16px)}
+.title p{margin-top:16px}
+.sheet{position:absolute;right:max(3vw,16px);bottom:20px;width:min(360px,48%);background:var(--bg);border:1px solid var(--ink);padding:18px 20px 16px}
+.sheet .tag{display:inline-block;font-size:13px;font-weight:700;color:#fff;background:var(--red);padding:2px 8px;margin-bottom:8px}
+.sheet h3{margin-bottom:6px}
+.sheet dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;margin:12px 0 0;font-size:14px}
+.sheet dt{color:var(--mute)}
+.sheet dd{margin:0;font-weight:600}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px max(5vw,16px);scroll-snap-type:x mandatory;border-top:1px solid var(--line);background:var(--bg)}
+.chips button{flex:none;scroll-snap-align:start;font:600 15px Archivo,'Noto Sans Ethiopic',sans-serif;min-height:44px;padding:0 16px;border:1px solid var(--ink);background:var(--bg);color:var(--ink);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.chips button:focus-visible,.btn:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.hint{position:absolute;left:16px;top:16px;font-size:13px;color:var(--mute);pointer-events:none}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(10em,1fr));border-top:1px solid var(--ink)}
+.figs div{padding:18px 18px 18px 0;border-bottom:1px solid var(--line)}
+.figs b{display:block;font-stretch:112%;font-weight:800;font-size:clamp(34px,4.4vw,56px);line-height:1;letter-spacing:-.03em;white-space:nowrap}
+.figs span{font-size:14px;color:var(--mute)}
+.case{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,56px);padding-block:40px;border-top:6px solid var(--ink)}
+.case+.case{border-top:1px solid var(--ink)}
+.case .no{font-stretch:112%;font-weight:800;font-size:15px;color:var(--red);margin-bottom:8px}
+.case ul{padding-left:18px;margin:10px 0}
+.case li{margin:4px 0}
+.chart{border-top:1px solid var(--ink);padding-top:10px}
+.chart h4{font-size:15px;margin:0 0 12px;font-weight:700}
+.row{display:grid;grid-template-columns:minmax(7.5em,11em) minmax(0,1fr) max-content;gap:12px;align-items:center;margin:10px 0;font-size:14px}
+.track{position:relative;height:26px;background:var(--soft)}
+.bar{position:absolute;top:0;bottom:0;background:var(--ink)}
+.bar.r{background:var(--red)}
+.bar.h{background:repeating-linear-gradient(135deg,var(--red) 0 5px,transparent 5px 9px);border:1px solid var(--red)}
+.val{font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.axis{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);margin-left:calc(min(11em,30%) + 12px);margin-right:3.5em}
+.fig{position:relative;min-height:300px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+svg text{paint-order:stroke;stroke:var(--bg);stroke-width:4px;font-family:Archivo,sans-serif}
+.note{font-size:14px;color:var(--mute);margin-top:10px}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:6px solid var(--ink)}
+.tool{padding:22px 22px 26px 0;border-right:1px solid var(--line)}
+.tool+.tool{padding-left:22px}
+.tool:last-child{border-right:0}
+.ribbon{margin:14px 0;border:1px solid var(--ink);background:var(--soft);font-size:13px}
+.ribbon .tab{display:flex;gap:16px;padding:6px 10px;border-bottom:1px solid var(--line)}
+.ribbon .tab b{color:var(--red);border-bottom:2px solid var(--red)}
+.ribbon .grp{display:flex;flex-wrap:wrap;gap:6px;padding:10px}
+.ribbon .grp span{border:1px solid var(--line);background:var(--bg);padding:4px 8px}
+.ribbon .cap{font-size:12px;color:var(--mute);padding:0 10px 8px}
+.app{margin:14px 0;border:1px solid var(--ink);font-size:13px}
+.app .top{display:flex;gap:10px;align-items:center;padding:8px 10px;background:var(--ink);color:var(--bg);font-weight:700}
+.app .top i{width:10px;height:10px;background:var(--red);display:inline-block}
+.app ol{list-style:none;margin:0;padding:6px 10px;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.hist{display:flex;align-items:flex-end;gap:3px;height:120px;margin:14px 0 4px;border-bottom:1px solid var(--ink)}
+.hist i{flex:1;background:var(--ink)}
+.hist i.r{background:var(--red)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{text-align:left;font-size:13px;color:var(--mute);font-weight:600;border-bottom:2px solid var(--ink);padding:8px 10px 8px 0}
+td{border-bottom:1px solid var(--line);padding:11px 10px 11px 0;vertical-align:top}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+th.n{text-align:right}
+td b{font-weight:700}
+.sw{font-size:13px;border:1px solid var(--line);padding:1px 6px;white-space:nowrap}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,40px)}
+.cols h3{margin-bottom:8px}
+.feature{border-top:6px solid var(--ink);padding-top:28px}
+.feat-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(20px,4vw,56px);align-items:end;margin-bottom:22px}
+.gal{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+.gal figure{flex:none;width:min(86%,980px);margin:0;scroll-snap-align:start}
+.gal img{display:block;width:100%;height:auto;aspect-ratio:1600/1230;object-fit:cover;background:var(--soft)}
+.gal figcaption{font-size:14px;color:var(--mute);padding-top:6px}
+.galnav{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.btn{font:600 15px Archivo,sans-serif;min-height:44px;min-width:44px;padding:0 14px;border:1px solid var(--ink);background:var(--bg);color:var(--ink);cursor:pointer}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.trio img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block}
+.blds{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.blds span{border:1px solid var(--line);padding:3px 9px;font-size:14px;white-space:nowrap}
+.blds b{color:var(--red)}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,56px);margin-top:28px}
+.bim{position:relative;height:min(64svh,600px);min-height:360px;background:var(--table)}
+#bim{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.bim .cap{position:absolute;left:14px;bottom:12px;font-size:13px;color:var(--mute);pointer-events:none}
+.bim .load{position:absolute;inset:0;display:grid;place-items:center;color:var(--mute);font-size:15px;pointer-events:none}
+.steps{list-style:none;margin:14px 0;padding:0;counter-reset:st}
+.steps li{display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.steps li::before{counter-increment:st;content:counter(st);font-stretch:112%;font-weight:800;font-size:22px;line-height:1;color:var(--red)}
+.pubs{list-style:none;margin:0;padding:0}
+.pubs li{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.pubs .y{font-weight:700;font-variant-numeric:tabular-nums}
+.pubs a{font-weight:600;text-decoration-color:var(--red);text-underline-offset:3px}
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:0 24px}
+.certs div{padding:10px 0;border-bottom:1px solid var(--line)}
+.certs small{display:block;color:var(--mute);font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17em),1fr));gap:24px;margin-top:20px}
+.card{border-top:3px solid var(--ink);padding-top:12px}
+.card img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;margin-bottom:12px;background:var(--soft)}
+.card h3{font-size:22px;margin-bottom:4px}
+.card dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 12px;font-size:14px;margin:10px 0 0}
+.card dt{color:var(--mute)}
+.card dd{margin:0;font-weight:600}
+.rep{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:12px;margin-top:20px}
+.rep img{width:100%;height:auto;display:block;border:1px solid var(--line)}
+.rep .side{display:grid;gap:12px}
+.loglist{columns:2 18em;column-gap:32px;margin:18px 0 0;padding:0;list-style:none}
+.loglist li{break-inside:avoid;padding:9px 0;border-bottom:1px solid var(--line)}
+.loglist b{display:block}
+@media(max-width:900px){.feat-head,.split,.rep{grid-template-columns:1fr}}
+@media(max-width:600px){.trio{grid-template-columns:1fr}.gal figure{width:92%}}
+footer{background:var(--ink);color:var(--bg)}
+footer h2{font-size:clamp(34px,5vw,64px)}
+footer .cols{margin-top:28px}
+footer a{text-decoration-color:var(--red);text-underline-offset:4px}
+footer .mute{color:color-mix(in srgb,var(--bg) 65%,var(--ink))}
+@media(max-width:900px){.tools{grid-template-columns:1fr}.tool,.tool+.tool{padding:22px 0;border-right:0;border-bottom:1px solid var(--line)}.case{grid-template-columns:1fr}.cols{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.stage{grid-template-columns:1fr;height:auto;min-height:0}.view{display:flex;flex-direction:column}#gl{position:relative;height:56svh;min-height:340px}.title{padding:28px max(5vw,16px) 8px}.sheet{position:relative;right:auto;bottom:auto;width:auto;margin:0 max(5vw,16px) 16px}}
+@media(max-width:700px){.hint{display:none}.cols{grid-template-columns:1fr}.app ol{grid-template-columns:1fr}}
+@media(max-width:600px){nav .wrap{flex-wrap:nowrap;overflow-x:auto}nav b{flex:none}nav a{flex:none}table{font-size:13px}th,td{padding:6px 4px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flex;justify-content:space-between;gap:12px;border:0;text-align:right}.stack td::before{content:attr(data-l);color:var(--mute);text-align:left}.row{grid-template-columns:minmax(0,1fr) max-content}.row .track{grid-column:1/-1;grid-row:2}.axis{margin-left:0;margin-right:0}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>Bedemariam Daniel Haile</b><a href="#projects">Model</a><a href="#nbe">NBE</a><a href="#work">Projects</a><a href="#delay">Delay analysis</a><a href="#reporting">Reporting</a><a href="#synchro">4D BIM</a><a href="#tools">Tools</a><a href="#research">Research</a><a href="#contact">Contact</a></div></nav>
+
+<header class="hero" id="projects">
+<div class="stage">
+<div class="title">
+<h1>Planning the buildings before they stand.</h1>
+<p class="lede">Planning engineer in Addis Ababa. Primavera P6 programmes, delay and EoT analysis, and the tools I build to make them faster.</p>
+</div>
+<div class="view">
+<canvas id="gl" aria-label="3D massing model of the projects. Drag to turn the table, choose a project below to focus on it."></canvas>
+<aside class="sheet" id="sheet" aria-live="polite"></aside>
+<div class="hint">Drag to turn the table · tap a model</div>
+</div>
+</div>
+<div class="chips" id="chips" role="toolbar" aria-label="Projects"></div>
+</header>
+
+<section class="band"><div class="wrap">
+<div class="figs" id="figs"></div>
+<p class="note">Counted directly from the P6 and MS Project programmes listed in the register below. Models on the table are simplified massing studies drawn from each programme's scope, not the architects' designs.</p>
+</div></section>
+
+<section class="band" id="nbe" style="padding-top:0"><div class="wrap feature">
+<div class="feat-head">
+<div><div class="no red" style="font-weight:800;font-stretch:112%">National Bank of Ethiopia · Akaki EIFS campus</div>
+<h2>A whole campus, crashed into twelve months.</h2>
+<p class="lede">The EIFS campus renovation and scale-up project (about USD 20 million): more than 40 blocks renovated or built at once, from dormitories to an auditorium, sports courts and guard towers. I run its baseline, look-aheads and the internal crashed programme that pulls completion to 28 Aug 2026.</p></div>
+<div class="figs" id="nbefigs" style="border-top:0;grid-template-columns:repeat(2,minmax(0,1fr))"></div>
+</div>
+<div class="gal" id="gal" tabindex="0" aria-label="NBE campus renders">
+<figure><img src="img/nbe3.jpg" alt="Aerial plan and perspective renders of the NBE EIFS campus with the main plaza, admin buildings and dormitory blocks" loading="lazy"><figcaption>Campus plaza, admin block and dormitory rows</figcaption></figure>
+<figure><img src="img/nbe1.jpg" alt="Renders of the campus sports facilities: football pitch, running track, tennis, volleyball and basketball courts" loading="lazy"><figcaption>External works: football field, tennis, volleyball and basketball courts</figcaption></figure>
+<figure><img src="img/nbe2.jpg" alt="Renders of the campus landscaping, walkways and planting" loading="lazy"><figcaption>Hard and soft landscaping</figcaption></figure>
+</div>
+<div class="galnav"><button class="btn" type="button" id="gp" aria-label="Previous render">←</button><button class="btn" type="button" id="gn" aria-label="Next render">→</button></div>
+<div class="split">
+<div>
+<h3>What the crashed programme carries</h3>
+<div class="blds" id="blds"></div>
+<p class="note">Renders and the 112-sheet A1 drawing set (May 2026) are by the EEC design team; the programme, crash and look-aheads are my work.</p>
+</div>
+<div>
+<div class="trio">
+<img src="img/nbe_gate.jpg" alt="Render of the NBE campus main entrance with signage" loading="lazy">
+<img src="img/nbe_aerial.jpg" alt="Render of the campus from above the main road" loading="lazy">
+<img src="img/nbe_plaza.jpg" alt="Render of the landscaped courtyard beside the admin block" loading="lazy">
+</div>
+<ul class="steps">
+<li><span><b>Baseline.</b> 691 activities, 1,270 logic links, 41 resources and 2,154 assignments across 226 WBS elements, 29 Aug 2025 to 28 Aug 2026.</span></li>
+<li><span><b>Crash.</b> An internal 680-activity crashed version with 1,136 links, re-sequenced so blocks run with parallel crews.</span></li>
+<li><span><b>Progress at 24 Mar 2026.</b> 64 activities complete and 92 under way, so the crash is tested against real site output.</span></li>
+<li><span><b>Into 4D.</b> The same crashed schedule, 899 tasks, was exported to SYNCHRO for model-based sequencing.</span></li>
+</ul>
+</div>
+</div>
+<div class="split" style="border-top:1px solid var(--ink);padding-top:24px">
+<div>
+<div class="no red" style="font-weight:800;font-stretch:112%">NBE II · Assembly hall renovation</div>
+<h3>Master schedule, variance and revenue plan</h3>
+<p>For the bank's assembly hall I built the MS Project master schedule: 182 tasks, 167 links, 22 resources and 209 assignments covering engineering, long-lead procurement, construction and handover.</p>
+<ul class="steps">
+<li><span><b>Baseline</b> 28 Apr – 24 Oct 2026 (180 days).</span></li>
+<li><span><b>Variance report, 11 Jun 2026.</b> Long-lead procurement pushes the forecast to 18 Nov 2026, 25 days past baseline, flagged early.</span></li>
+<li><span><b>Control.</b> Physical progress tracker, weightage and monthly revenue plan, HSE and manpower returns.</span></li>
+</ul>
+</div>
+<div class="trio" style="grid-template-columns:1fr 1fr;margin-top:0">
+<img src="img/nbe2_1.jpg" alt="Render of the renovated NBE assembly hall seating and balcony" loading="lazy" style="aspect-ratio:4/3">
+<img src="img/nbe2_2.jpg" alt="Render of the NBE assembly hall stage and timber ceiling" loading="lazy" style="aspect-ratio:4/3">
+</div>
+</div>
+</div></section>
+
+<section class="band" id="work" style="padding-top:0"><div class="wrap feature">
+<h2>More projects</h2>
+<p class="lede">Headquarters, an airport terminal and fit-outs, each planned in P6 or MS Project.</p>
+<div class="cards" id="cards"></div>
+</div></section>
+
+<section class="band" id="delay" style="padding-top:0"><div class="wrap">
+<h2>Delay analysis</h2>
+<p class="lede">Three programmes where the question was not "when will we finish" but "who moved the date, and by how much".</p>
+
+<article class="case">
+<div>
+<div class="no">Arba Minch Stadium · EoT claim</div>
+<h3>Payment delay drives the claim: 36 days, not 68.</h3>
+<p>Time impact analysis in P6 for the stadium programme. I modelled each delay event as a fragnet in its own copy of the schedule, then ran them together to test concurrency.</p>
+<ul>
+<li>Fragnet 1: undefined scope and late design information (259 days).</li>
+<li>Fragnet 2: late payment of interim certificates (335 days).</li>
+<li>Three scenario models of 799 activities each, 31 resources, 7-day site calendar.</li>
+<li>Design delay alone pushes completion 32 days; payment alone 36. Run together they overlap, so the cumulative entitlement is 36 days, the figure a reviewer can trust.</li>
+</ul>
+</div>
+<div class="chart">
+<h4>Forecast completion against the contract date, 15 Feb 2028</h4>
+<div id="ams"></div>
+<div class="axis"><span>15 Feb 2028</span><span>+20 d</span><span>+40 d</span></div>
+<p class="note">Scope: design, procurement, main stadium (structure, finishes, MEP, pitch and track, bridges), external works, testing and commissioning.</p>
+</div>
+</article>
+
+<article class="case">
+<div>
+<div class="no">Bishoftu International Airport · Earthworks Package 2</div>
+<h3>A force majeure window, measured against the 7 Jan 2027 finish.</h3>
+<p>For the earthworks of Africa's largest planned airport, I inserted the force majeure (pre-legislation) event into the progressed programme at the 1 Apr 2026 data date and measured its effect on completion.</p>
+<ul>
+<li>820 activities, 1,398 relationships, 26 resources and 3,344 assignments.</li>
+<li>Eight calendars, including separate rainy-season and two-shift calendars for the earthmoving fleets.</li>
+<li>409 activities complete and 162 in progress at the data date: the analysis sits on real progress, not a plan.</li>
+<li>The impacted forecast is 8 Feb 2027, 32 days past the required completion.</li>
+</ul>
+</div>
+<div class="chart">
+<h4>Event windows and the completion they push</h4>
+<div class="fig" id="bia" style="min-height:260px"><svg id="biaS" role="img" aria-label="Timeline of force majeure periods in 2026 and the shift in project completion"></svg></div>
+</div>
+</article>
+
+<article class="case">
+<div>
+<div class="no">EAH apartment and parking complex · Recovery programme No. 2</div>
+<h3>Four weekly updates, seven days lost every week.</h3>
+<p>Trend analysis across four consecutive updates of a 2,048-activity recovery programme: nine G+20+R apartment towers and three G+6+T parking buildings.</p>
+<ul>
+<li>2,272 relationships, 132 resources and 22,389 resource assignments.</li>
+<li>Completion slid from 19 Apr to 10 May 2027 in three weeks, while completed activities rose only from 254 to 292.</li>
+<li>Reading the slope, not the single date, is what tells management the recovery plan is not recovering.</li>
+</ul>
+</div>
+<div class="chart">
+<h4>Forecast completion at each data date, July 2025</h4>
+<div class="fig" id="eah" style="min-height:280px"><svg id="eahS" role="img" aria-label="Forecast completion moving later at each weekly update"></svg></div>
+</div>
+</article>
+</div></section>
+
+<section class="band" id="reporting" style="padding-top:0"><div class="wrap feature">
+<div class="feat-head">
+<div><h2>Reporting and S-curves</h2>
+<p class="lede">Weekly and monthly reports that put planned against actual on one page, for the client and for management.</p></div>
+<p class="mute">Shown: the revised monthly S-curve from the EAH weekly report No. 120 (2 Feb 2026), with baseline, revised plan and actual, plus structure progress and manpower slides.</p>
+</div>
+<div class="rep">
+<img src="img/rep_eah_scurve.jpg" alt="EAH revised monthly S-curve comparing baseline plan, revised plan and cumulative actual progress from Dec 2023 to Nov 2026" loading="lazy">
+<div class="side">
+<img src="img/rep_eah_structure.jpg" alt="EAH weekly report slide showing floor-by-floor structure progress of the apartment towers" loading="lazy">
+<img src="img/rep_eah_manpower.jpg" alt="EAH weekly report slide with manpower mobilisation histogram" loading="lazy">
+<img src="img/rep_ics_status.jpg" alt="Immigration HQ monthly report slide showing planned 4.25 percent against actual 3.16 percent" loading="lazy">
+</div>
+</div>
+<ul class="loglist" id="replog"></ul>
+</div></section>
+
+<section class="band" id="synchro" style="padding-top:0"><div class="wrap feature">
+<div class="feat-head">
+<div><h2>4D BIM in SYNCHRO</h2>
+<p class="lede">Linking the model to the programme, so a schedule can be watched being built before anyone pours concrete.</p></div>
+<p class="mute">Below is the real model from my SYNCHRO file, exported to IFC and reduced for the web: 4,367 building elements, furniture and fittings removed. Drag to turn it.</p>
+</div>
+<div class="bim"><canvas id="bim" aria-label="3D BIM model exported from SYNCHRO"></canvas><div class="load" id="bimload">Loading model…</div><div class="cap">SYNCHRO Pro → IFC 2x3 · 4,367 elements · 899-task schedule</div></div>
+<div class="split">
+<div>
+<h3>How I use it</h3>
+<ul class="steps">
+<li><span><b>Model.</b> Revit and AutoCAD models, brought in through the SYNCHRO plug-ins for Revit, Navisworks and MicroStation.</span></li>
+<li><span><b>Link.</b> Import the P6 programme as XML and map tasks to model elements, with temporary works and equipment from a 220-model library.</span></li>
+<li><span><b>Sequence.</b> Run the 4D simulation, then compare baseline against actual to show where the site is ahead or behind.</span></li>
+</ul>
+</div>
+<div>
+<h3>Parliament Library tender</h3>
+<p>For the FDRE Parliament Library bid (December 2025) I built the bid programme and the resource plan behind it: 211 activities over 274 days, from shoring and a deep substructure to finishes, MEP and landscape.</p>
+<div id="parl"></div>
+<p class="note">Resource and man-hour plan priced crew by crew across 12 trade packages. Bid prices are not shown.</p>
+</div>
+</div>
+</div></section>
+
+<section class="band" id="tools" style="padding-top:0"><div class="wrap">
+<h2>Tools I build</h2>
+<p class="lede">When a planning task repeats every week, I turn it into a button.</p>
+<div class="tools">
+<div class="tool">
+<h3>Plaነer</h3>
+<p>An Excel ribbon add-in in VBA that turns a P6 activity export into a weighted progress sheet and S-curve in a few clicks.</p>
+<div class="ribbon" aria-label="Plaነer ribbon">
+<div class="tab"><span>Home</span><span>Insert</span><b>Plaነer</b></div>
+<div class="grp" id="rib1"></div><div class="cap">P6 conversion tools</div>
+<div class="grp" id="rib2"></div><div class="cap">Schedule update</div>
+</div>
+<p class="note">16 macros and about 2,000 lines of VBA. The ነ in the name is an Amharic keyboard slip I kept.</p>
+</div>
+<div class="tool">
+<h3>ASCEND claims register</h3>
+<p>A web app for contract and claims work: compares baseline and current XER files, flags float and critical-path shifts, and tracks every EoT from notice to settlement.</p>
+<div class="app"><div class="top"><i></i>ASCEND Contract &amp; Claims</div><ol id="asc"></ol></div>
+<p class="note">Role-based login, multi-project registry, letter register, weekly action plan, light and dark themes.</p>
+</div>
+<div class="tool">
+<h3>Resource loading workbook</h3>
+<p>Crew productivity per 8-hour shift times BOQ quantity gives each activity's duration and crew; MAXIFS formulas then roll peak equipment and manpower up by month and by half-month.</p>
+<div class="hist" id="hist" aria-hidden="true"></div>
+<div class="axis" style="margin:0"><span>Jan</span><span>Jun</span><span>Dec</span></div>
+<p class="note">Illustrative shape. The real workbook covers 260+ activities and 30+ equipment and trade types.</p>
+</div>
+</div>
+</div></section>
+
+<section class="band" id="register" style="padding-top:0"><div class="wrap">
+<h2>Programme register</h2>
+<p class="lede">The schedules behind this page, as they read in P6 and MS Project.</p>
+<div class="scroll">
+<table class="stack">
+<thead><tr><th>Project</th><th>Work</th><th>Tool</th><th class="n">Activities</th><th class="n">Links</th><th>Span</th></tr></thead>
+<tbody id="reg"></tbody>
+</table>
+</div>
+<h3 style="margin-top:40px">Earlier EEC programmes, 2023 – 2025</h3>
+<p class="mute">From EEC's schedule archive, before I joined in Sep 2025: buildings, airport fences and university road works that I study and reuse as templates.</p>
+<div class="scroll"><table class="stack"><thead><tr><th>Programme</th><th class="n">Activities</th></tr></thead><tbody id="arch"></tbody></table></div>
+</div></section>
+
+<section class="band" id="research" style="padding-top:0"><div class="wrap feature">
+<div class="split" style="margin-top:0">
+<div>
+<h2>Research</h2>
+<p class="lede">Five papers on ResearchGate, written during my BSc at Addis Ababa University.</p>
+<p class="mute">BSc Construction Technology and Management, 2025, taught in English. Junior Planning Engineer, Ethiopian Engineering Corporation, since Sep 2025.</p>
+</div>
+<ul class="pubs" id="pubs"></ul>
+</div>
+<h3 style="margin-top:36px">Training and certificates</h3>
+<div class="certs" id="certs"></div>
+</div></section>
+
+<footer class="band" id="contact"><div class="wrap">
+<h2>Have a programme that needs a planner?</h2>
+<p class="lede">Remote or on site, full or part time. Scheduling, updates, delay analysis and EoT submissions.</p>
+<div class="cols">
+<div><p class="mute">Email</p><p><a href="mailto:bededani22@gmail.com">bededani22@gmail.com</a></p></div>
+<div><p class="mute">Phone</p><p>+251 948 293 188</p></div>
+<div><p class="mute">Profiles</p><p><a href="https://www.linkedin.com/in/bedemariam-daniel-7a3b262b0">LinkedIn</a> · <a href="https://orcid.org/0009-0004-5101-5904">ORCID</a> · <a href="https://scholar.google.com/citations?user=YCRgJP4AAAAJ&amp;hl=en">Google Scholar</a> · <a href="https://github.com/bededani22-art">GitHub</a></p></div>
+</div>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+{
+const P=[
+{id:'nbe',chip:'NBE Campus',tag:'Crashed programme',name:'NBE Akaki EIFS campus renovation and scale-up',where:'Akaki, Addis Ababa',work:'Baseline, crash and look-aheads',dl:[['Value','about USD 20 million'],['Blocks','40+ buildings and courts'],['Activities','691 (680 crashed)'],['Completion','28 Aug 2026']]},
+{id:'parl',chip:'Parliament Library',tag:'Tender',name:'FDRE Parliament Library',where:'Addis Ababa',work:'Bid programme and resource plan',dl:[['Activities','211'],['Duration','274 days'],['Span','Jan – Oct 2026'],['Packages','12 trades, crew by crew']]},
+{id:'bia',chip:'Bishoftu Airport',tag:'Delay analysis',name:'Bishoftu International Airport, EWP2',where:'Bishoftu, Oromia',work:'Force majeure event delay',dl:[['Package','Earthworks (runway area)'],['Client','Ethiopian Airlines Group'],['Activities','820'],['Completion','7 Jan 2027 → 8 Feb 2027']]},
+{id:'ams',chip:'Arba Minch Stadium',tag:'EoT claim',name:'Arba Minch Stadium',where:'Arba Minch, South Ethiopia',work:'Time impact analysis, design and payment delay',dl:[['Scenarios','3 TIA models'],['Activities','799 each'],['Resources','31'],['Entitlement','36 days']]},
+{id:'eah',chip:'EAH Towers',tag:'Trend analysis',name:'EAH apartment and parking complex',where:'Addis Ababa',work:'Recovery programme updates',dl:[['Buildings','9 × G+20+R, 3 × G+6+T'],['Activities','2,048'],['Assignments','22,389'],['Slip','21 days in 3 updates']]},
+{id:'ecx',chip:'ECX HQ',tag:'Recovery programme',name:'Ethiopian Commodity Exchange HQ',where:'Addis Ababa',work:'Actual vs forecast recovery work programme',dl:[['Tool','MS Project'],['Tasks','990, 1,075 links'],['Resources','396'],['Scope','Podium 3B+G+4+T, piles, shoring']]},
+{id:'nbe2',chip:'NBE II Hall',tag:'Master schedule',name:'NBE II assembly hall renovation',where:'Addis Ababa',work:'MS Project master schedule and variance',dl:[['Tasks','182'],['Baseline','28 Apr – 24 Oct 2026'],['Forecast','18 Nov 2026'],['Control','Tracker and revenue plan']]},
+{id:'jim',chip:'Jimma Airport',tag:'Cost breakdown',name:'Jimma Airport new terminal and infrastructure',where:'Jimma, Oromia',work:'BOQ and cost breakdown',dl:[['Terminal','Ground and mezzanine floors'],['Airside','Apron and taxiway'],['Landside','Parking, pump and power house'],['Sheets','30+']]},
+{id:'ics',chip:'Immigration HQ',tag:'Monthly report',name:'Immigration Western HQ',where:'Addis Ababa',work:'Monthly progress reporting',dl:[['Client','Immigration and Citizenship Service'],['Planned','4.25%'],['Actual','3.16%'],['Report','Aug 2026']]},
+{id:'eeu',chip:'EEU Cafeteria',tag:'Baseline',name:'EEU West Addis Ababa cafeteria',where:'Addis Ababa',work:'Renovation baseline schedule',dl:[['Activities','61'],['Links','70'],['Span','8 Jun – 5 Oct 2026'],['Client','Ethiopian Electric Utility']]},
+{id:'dara',chip:'DARA HQ',tag:'Master schedule',name:'DARA headquarters, 4B+G+21',where:'Addis Ababa',work:'Revised master schedule, Nov 2025',dl:[['Tool','MS Project'],['Duration','2,217 days'],['Span','Sep 2020 – Nov 2026'],['Phases','Pre-construction, sub and superstructure']]},
+{id:'sda',chip:'SDA Head Office',tag:'My project',name:'SDA Union Mission head office, 2B+G+15',where:'Addis Ababa',work:'My baseline, revision, look-aheads and reports',dl:[['Building','Multi-purpose, 2B+G+15'],['Client','Eastern Ethiopia Union Mission'],['Look-aheads','2-week and milestone'],['Registers','Risk, material, subcontractor']]},
+{id:'era',chip:'ERA Lake',tag:'Baseline',name:'ERA lake rehabilitation',where:'Addis Ababa',work:'Baseline programme',dl:[['Activities','284'],['Links','384'],['Span','1 Oct 2026 – 29 Sep 2027'],['Scope','Lake widening, shoreline, service building, amphitheatre']]},
+{id:'mof',chip:'Ministry of Finance',tag:'Baseline',name:'Ministry of Finance, Ethiopia',where:'Addis Ababa',work:'Baseline programme',dl:[['Activities','321'],['Links','344'],['Span','28 Oct 2026 – 8 Mar 2027'],['Tool','Primavera P6']]},
+{id:'ten',chip:'Technical Room',tag:'Training',name:'Technical room, Ten-01',where:'P6 planning course',work:'Baseline and first update exercise',dl:[['Activities','71'],['Links','125'],['Assignments','76'],['Span','Jan – Sep 2024']]},
+{id:'dbe',chip:'DBoE Renovation',tag:'My project',name:'Development Bank of Ethiopia office',where:'Addis Ababa',work:'Baseline, revised EoT schedule, closing report',dl:[['Activities','93'],['Span','Feb – May 2025'],['Revision','Schedule 04, EoT'],['Closed','Dec 2025']]},
+{id:'gie',chip:'GIE Garage',tag:'My project',name:'GIE garage, site works and guard house',where:'Addis Ababa',work:'Baseline and progress tracking',dl:[['Baseline','Nov 2025'],['Trackers','Material progress'],['Registers','Risk and opportunity'],['Scope','Design and build']]}
+];
+const CARDS=[
+{img:'img/ecx.jpg',alt:'Render of the Ethiopian Commodity Exchange headquarters tower on its podium',t:'ECX headquarters',s:'Lot I podium (3B+G+4+T) and Lot II piles · MS Project',dl:[['Tasks','990'],['Links','1,075'],['Resources','396 (3,270 assignments)'],['Recovery','Baseline Nov 2025 → forecast Oct 2026']]},
+{img:'img/jimma.jpg',alt:'Render of the new Jimma Airport passenger terminal and car park',t:'Jimma Airport new terminal',s:'Terminal and infrastructure · cost breakdown',dl:[['Scope','Passenger terminal, apron, taxiway'],['Also','Car park, pump and power house, landscape'],['Work','BOQ summaries and civil cost breakdown'],['Packages','30+ priced sheets']]},
+{t:'Immigration Western HQ',s:'FDRE Immigration and Citizenship Service · monthly report',dl:[['Report','Aug 2026'],['Progress','Planned 4.25%, actual 3.16%'],['Elapsed','50 days (11%)'],['Status','Batching plant up, bulk excavation done']]},
+{t:'EEU West Addis cafeteria',s:'Ethiopian Electric Utility · renovation baseline',dl:[['Activities','61'],['Links','70'],['Span','8 Jun – 5 Oct 2026'],['Scope','Demolition to skylight, MEP and handover']]},
+{t:'SDA head office, 2B+G+15',s:'Eastern Ethiopia Union Mission · site planning',dl:[['Schedules','Baseline and revision 01'],['Look-aheads','2-week and milestone'],['Reports','5 monthly, executive status'],['Registers','Risk, material, subcontractor']]},
+{t:'DBoE office renovation',s:'Development Bank of Ethiopia · design and renovation',dl:[['Activities','93'],['Revision','Schedule 04, EoT'],['Reports','10 weekly, 3 monthly'],['Closed','Closing report, Dec 2025']]},
+{t:'GIE garage and site works',s:'Design and build, garage, site works, guard house',dl:[['Baseline','Nov 2025'],['Trackers','4 material progress trackers'],['Registers','12 risk and opportunity'],['Reports','14 weekly']]}];
+const REPLOG=[['EAH weekly reports','No. 120 – 124: contract, design, procurement, S-curve, structure, block work, manpower'],['Bishoftu monthly reports','No. 9 and 10 with dashboard: elapsed time, KPI, S-curve, HSE, QA/QC, manpower'],['Immigration HQ','Monthly status deck: progress gauge, material and equipment on site, risks'],['NBE II','Variance report, physical progress tracker, revenue plan'],['SDA head office','Monthly reports 1–5, executive status, daily task evaluations'],['DBoE and GIE','Weekly reports, material trackers, risk registers, closing report']];
+const ARCH=[['EAU classroom building and maintenance hangar',939],['Gerhalta Guh Lodge, phase I',1385],['AA Housing head office renovation',822],['MoWSA building renovation',392],['NBE–UNISA renovation and construction',322],['GIE G+2 building, site works and renovation',295],['Amhara Supreme Court renovation',278],['ANRS G+3 building and site works',184],['EIC office design and renovation',169],['W13 health centre G+4',126],['Ethiopian Securities Exchange office',98],['EAG security fence, Mekele airport',98],['EAG security fence, Bahir Dar and Jimma airports','70 each'],['DBU phase 2: approach roads and main gate','45 each']];
+const PUBS=[
+['Jul 2025','Evaluating the impact of the East–West Addis Ababa Light Rail Transit on socio-economic activity','with A. Muhe and F. Yusuf','https://www.researchgate.net/publication/404390120'],
+['Apr 2025','Digital transformation in the AEC industry: a case study on BIM adoption and impact','with A. Muhe','https://www.researchgate.net/publication/404390056'],
+['May 2024','Cost-efficient construction for residential buildings in Addis Ababa','sole author','https://www.researchgate.net/publication/404395586'],
+['Apr 2024','Challenge of implementing Primavera in Ethiopian construction','with A. Muhe and E. Hailu','https://www.researchgate.net/publication/404395961'],
+['Feb 2023','The effect of structural design change of completed buildings in Addis Ababa','with F. Yusuf','https://www.researchgate.net/publication/404389978']];
+const CERTS=[['Construction project management fundamentals','Planning Engineer FZE, 2026'],['Leadership development programme','Ethiopian Engineering Corporation, 2026'],['Project management certification course','MTF Institute, 2026'],['Risk management course','MTF Institute, 2026'],['Project manager certification','Agile Enterprise Coach, 2026'],['Excel VBA and Excel data analysis','Online courses, 2026'],['Disability, accessibility and universal design','Inclusive Ethiopia and EiABC, 2024'],['Chinese language, level 1','Confucius Institute, AAU, 2023']];
+const NBEB=[['Dormitory type A','19 blocks'],['Dormitory type B','5 blocks'],['Guard house and watch tower','5 blocks'],['Admin and training','2 blocks'],['Gymnasium'],['Auditorium'],['Library'],['Clinic'],['Kitchen and dining'],['Staff accommodation'],['Guest apartment'],['VIP guest house'],['Laundry'],['Store and workshop'],['Showers'],['Football field'],['Tennis, volleyball, basketball'],['Asphalt, gates and fence'],['Landscaping']];
+const PARL=[['Sub-structure',84,'2026-02-07'],['Super-structure',80,'2026-04-30'],['Finishing and MEP',168,'2026-05-11'],['Greenery and landscape',21,'2026-07-19'],['Roof',17,'2026-08-09'],['Handover',19,'2026-10-08']];
+const REG=[
+['NBE Akaki EIFS campus','Baseline','P6',691,1270,'Aug 2025 – Aug 2026'],
+['NBE Akaki EIFS campus','Internal crashed programme','P6',680,1136,'Aug 2025 – Aug 2026'],
+['Arba Minch Stadium','EoT, 3 TIA scenarios (one model shown)','P6',799,1735,'Nov 2025 – Mar 2028'],
+['Bishoftu Airport EWP2','FM event delay','P6',820,1398,'Oct 2025 – Feb 2027'],
+['EAH complex','Recovery No. 2, 4 updates','P6',2048,2272,'Dec 2023 – May 2027'],
+['ERA lake rehabilitation','Baseline','P6',284,384,'Oct 2026 – Sep 2027'],
+['Ministry of Finance','Baseline','P6',321,344,'Oct 2026 – Mar 2027'],
+['DBoE office renovation','Baseline and EoT revision','P6',93,120,'Feb – May 2025'],
+['Technical room Ten-01','Training: baseline and first update','P6',71,125,'Jan – Oct 2024'],
+['ECX headquarters','Recovery, actual vs forecast','MS Project',990,1075,'Apr 2025 – Oct 2026'],
+['DARA HQ 4B+G+21','Revised master schedule','MS Project',null,null,'Sep 2020 – Nov 2026'],
+['FDRE Parliament Library','Bid programme and resource plan','P6',211,null,'Jan – Oct 2026'],
+['NBE II assembly hall','Master schedule and variance','MS Project',182,167,'Apr – Nov 2026'],
+['EEU West Addis cafeteria','Renovation baseline','P6',61,70,'Jun – Oct 2026']
+];
+const $=s=>document.querySelector(s);
+const D2=s=>new Date(s+'T00:00:00Z').getTime();
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>n==null?'—':n.toLocaleString('en-US');
+const p6=REG.filter(r=>r[3]&&r[4]);
+const acts=p6.reduce((a,r)=>a+r[3],0),links=p6.reduce((a,r)=>a+r[4],0);
+$('#figs').innerHTML=[[P.length,'projects on the table'],[fmt(acts),'activities scheduled'],[fmt(links),'logic links'],['3','delay analyses'],['16','macros in Plaነer']].map(f=>`<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('');
+$('#cards').innerHTML=CARDS.map(c=>`<article class="card">${c.img?`<img src="${c.img}" alt="${esc(c.alt)}" loading="lazy">`:''}<h3>${esc(c.t)}</h3><div class="mute" style="font-size:14px">${esc(c.s)}</div><dl>${c.dl.map(d=>`<dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd>`).join('')}</dl></article>`).join('');
+$('#replog').innerHTML=REPLOG.map(r=>`<li><b>${esc(r[0])}</b><span class="mute" style="font-size:14px">${esc(r[1])}</span></li>`).join('');
+$('#arch').innerHTML=ARCH.map(a=>`<tr><td data-l="Programme">${esc(a[0])}</td><td class="n" data-l="Activities">${typeof a[1]==='number'?fmt(a[1]):esc(a[1])}</td></tr>`).join('');
+$('#pubs').innerHTML=PUBS.map(p=>`<li><span class="y">${p[0]}</span><span><a href="${p[3]}">${esc(p[1])}</a><br><span class="mute" style="font-size:14px">${esc(p[2])}</span></span></li>`).join('');
+$('#certs').innerHTML=CERTS.map(c=>`<div>${esc(c[0])}<small>${esc(c[1])}</small></div>`).join('');
+$('#blds').innerHTML=NBEB.map(b=>`<span>${esc(b[0])}${b[1]?` <b>${esc(b[1])}</b>`:''}</span>`).join('');
+$('#nbefigs').innerHTML=[['691','baseline activities'],['1,270','logic links'],['2,154','resource assignments'],['12 mo','crashed duration']].map(f=>`<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('');
+{const s0=D2('2026-01-26'),s1=D2('2026-10-26');$('#parl').innerHTML=PARL.map(r=>{const a=D2(r[2]),l=(a-s0)/(s1-s0)*100,w=r[1]*864e5/(s1-s0)*100;return `<div class="row"><span>${r[0]}</span><div class="track"><div class="bar${r[0]==='Finishing and MEP'?' r':''}" style="left:${l}%;width:${Math.min(w,100-l)}%"></div></div><span class="val">${r[1]} d</span></div>`}).join('')+'<div class="axis"><span>Jan 2026</span><span>Oct 2026</span></div>'}
+const gal=$('#gal');const step=d=>{const f=gal.querySelector('figure');gal.scrollBy({left:d*(f.clientWidth+12),behavior:'smooth'})};$('#gp').addEventListener('click',()=>step(-1));$('#gn').addEventListener('click',()=>step(1));gal.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();step(1)}if(e.key==='ArrowLeft'){e.preventDefault();step(-1)}});
+$('#reg').innerHTML=REG.map(r=>`<tr><td data-l="Project"><b>${esc(r[0])}</b></td><td data-l="Work">${esc(r[1])}</td><td data-l="Tool"><span class="sw">${esc(r[2])}</span></td><td class="n" data-l="Activities">${fmt(r[3])}</td><td class="n" data-l="Links">${fmt(r[4])}</td><td data-l="Span">${esc(r[5])}</td></tr>`).join('');
+$('#rib1').innerHTML=['WBS Coloring','Budgeted Sum','A Remover','Weightage','Planned %','Planned Value','Actual %','Actual Value'].map(x=>`<span>${x}</span>`).join('');
+$('#rib2').innerHTML=['Sync Qty/Budget','Blank','Missing','Duplicate','Updated','Clear'].map(x=>`<span>${x}</span>`).join('');
+$('#asc').innerHTML=['Dashboard','Project registry','Letter registry','Claims and EoT','XER comparison','Next week plan','Prolongation cost','Concurrency check'].map(x=>`<li>${x}</li>`).join('');
+const hv=[3,4,6,9,12,15,18,22,26,24,28,31,30,27,29,25,21,17,14,11,8,6,4,3];
+$('#hist').innerHTML=hv.map(v=>`<i class="${v>=29?'r':''}" style="height:${v/31*100}%"></i>`).join('');
+/* Arba Minch bars */
+const amsRows=[['Design delay alone',32,'h'],['Payment delay alone',36,'h'],['Both together',36,'r']];
+$('#ams').innerHTML=amsRows.map(r=>`<div class="row"><span>${r[0]}</span><div class="track"><div class="bar ${r[2]}" style="left:0;width:${r[1]/45*100}%"></div></div><span class="val">+${r[1]} days</span></div>`).join('')+`<div class="row"><span class="mute">Sum if added</span><div class="track"><div class="bar" style="left:0;width:100%;opacity:.15"></div></div><span class="val mute">68 days</span></div>`;
+/* SVG charts */
+const css=getComputedStyle(document.documentElement);
+const D=s=>new Date(s+'T00:00:00Z').getTime();
+function bia(){const s=$('#biaS'),W=s.clientWidth,H=s.clientHeight;if(!W)return;const L=16,R=16,x0=D('2026-02-01'),x1=D('2027-03-01'),X=t=>L+(t-x0)/(x1-x0)*(W-L-R);const narrow=W<520;
+const ev=[['Pre-legislation','2026-02-28','2026-03-09'],['FM period 1','2026-03-09','2026-03-31'],['FM period 2','2026-04-01','2026-05-04']];
+let g='';const months=narrow?['2026-03-01','2026-07-01','2026-11-01','2027-03-01']:['2026-03-01','2026-05-01','2026-07-01','2026-09-01','2026-11-01','2027-01-01','2027-03-01'];
+months.forEach(m=>{const x=X(D(m));g+=`<line x1="${x}" x2="${x}" y1="30" y2="${H-34}" stroke="var(--line)"/><text x="${x}" y="${H-12}" text-anchor="middle" font-size="13" fill="var(--mute)">${new Date(D(m)).toLocaleString('en-GB',{month:'short',timeZone:'UTC'})}${m.endsWith('01-01')||m==='2026-03-01'?' '+m.slice(2,4):''}</text>`});
+const by=44;ev.forEach((e,i)=>{const a=X(D(e[1])),b=X(D(e[2]));g+=`<rect x="${a}" y="${by+i*30}" width="${Math.max(3,b-a)}" height="20" fill="${i==2?'var(--red)':'var(--ink)'}"/><text x="${b+8}" y="${by+i*30+15}" font-size="14" fill="var(--ink)">${e[0]}</text>`});
+const yc=by+3*30+26,rq=X(D('2027-01-07')),fc=X(D('2027-02-08'));
+g+=`<line x1="${X(D('2026-04-01'))}" x2="${X(D('2026-04-01'))}" y1="${by+84}" y2="${H-34}" stroke="var(--ink)" stroke-dasharray="4 4"/><text x="${X(D('2026-04-01'))+6}" y="${by+104}" font-size="13" fill="var(--mute)">Data date 1 Apr</text>`;
+g+=`<rect x="${rq}" y="${yc}" width="${fc-rq}" height="20" fill="var(--red)"/><line x1="${rq}" x2="${rq}" y1="${yc-6}" y2="${yc+26}" stroke="var(--ink)" stroke-width="2"/><text x="${rq-8}" y="${yc+15}" text-anchor="end" font-size="14" fill="var(--ink)">Required 7 Jan</text><text x="${fc}" y="${yc+44}" text-anchor="end" font-size="14" font-weight="700" fill="var(--red)">8 Feb 2027, +32 days</text>`;
+s.innerHTML=g}
+function eah(){const s=$('#eahS'),W=s.clientWidth,H=s.clientHeight;if(!W)return;const pts=[['7 Jul','2027-04-19',254],['14 Jul','2027-04-26',265],['21 Jul','2027-05-03',274],['28 Jul','2027-05-10',292]];
+const L=W<520?56:70,R=W<520?20:40,T=24,B=44,y0=D('2027-04-12'),y1=D('2027-05-17'),Y=t=>T+(1-(t-y0)/(y1-y0))*(H-T-B),X=i=>L+i*(W-L-R)/3;
+let g='';['2027-04-19','2027-04-26','2027-05-03','2027-05-10'].forEach(d=>{const y=Y(D(d));g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${L-10}" y="${y+5}" text-anchor="end" font-size="13" fill="var(--mute)">${new Date(D(d)).toLocaleString('en-GB',{day:'numeric',month:'short',timeZone:'UTC'})}</text>`});
+const path=pts.map((p,i)=>`${i?'L':'M'}${X(i)},${Y(D(p[1]))}`).join(' ');
+g+=`<path d="${path} L${X(3)},${H-B} L${X(0)},${H-B} Z" fill="var(--red)" opacity=".12"/><path d="${path}" fill="none" stroke="var(--red)" stroke-width="4"/>`;
+pts.forEach((p,i)=>{const x=X(i),y=Y(D(p[1]));g+=`<circle cx="${x}" cy="${y}" r="7" fill="var(--bg)" stroke="var(--red)" stroke-width="3"/><text x="${x}" y="${H-16}" text-anchor="middle" font-size="13" fill="var(--mute)">${p[0]}</text>`;if(W>=420)g+=`<text x="${x}" y="${y-14}" text-anchor="${i==3?'end':'middle'}" font-size="13" fill="var(--ink)">${p[2]} done</text>`});
+g+=`<text x="${X(3)-12}" y="${Y(D('2027-04-19'))+6}" text-anchor="end" font-size="16" font-weight="700" fill="var(--red)">+21 days</text>`;
+s.innerHTML=g}
+const draw=()=>{bia();eah()};const chartObs=new ResizeObserver(draw);chartObs.observe($('#bia'));chartObs.observe($('#eah'));
+new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+/* sheet + chips */
+let cur='nbe';
+function sheet(){const p=P.find(x=>x.id===cur);$('#sheet').innerHTML=`<span class="tag">${esc(p.tag)}</span><h3>${esc(p.name)}</h3><div class="mute" style="font-size:14px">${esc(p.where)} · ${esc(p.work)}</div><dl>${p.dl.map(d=>`<dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd>`).join('')}</dl>`;
+document.querySelectorAll('#chips button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===cur))}
+$('#chips').innerHTML=P.map(p=>`<button type="button" data-id="${p.id}" aria-pressed="false">${esc(p.chip)}</button>`).join('');
+$('#chips').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;select(b.dataset.id)});
+let select=id=>{cur=id;sheet()};
+sheet();
+
+/* 3D model table */
+if(window.THREE){
+const T=THREE,cv=$('#gl'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const renderer=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
+const scene=new T.Scene();const cam=new T.PerspectiveCamera(34,1,.1,500);
+const hemi=new T.HemisphereLight(0xffffff,0x9a9a9a,.75);scene.add(hemi);
+const sun=new T.DirectionalLight(0xffffff,.9);sun.position.set(-30,50,24);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);const sc=sun.shadow.camera;sc.left=-40;sc.right=40;sc.top=40;sc.bottom=-40;sc.far=140;scene.add(sun);
+const col=()=>{const c=getComputedStyle(document.body);return{ink:c.color,red:css.getPropertyValue('--red').trim()}};
+const dark=()=>{const t=document.documentElement.dataset.theme;return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches};
+const mWhite=new T.MeshStandardMaterial({color:0xfafafa,roughness:.85});
+const mRed=new T.MeshStandardMaterial({color:0xe4002b,roughness:.6});
+const mWater=new T.MeshStandardMaterial({color:0x9fb3c4,roughness:.25,metalness:.1});
+const mEarth=new T.MeshStandardMaterial({color:0xd8d2c8,roughness:1});
+const mBase=new T.MeshStandardMaterial({color:0xeeeeee,roughness:1});
+const eMat=new T.LineBasicMaterial({color:0x111111,transparent:true,opacity:.55});
+const groups={};
+function box(g,w,h,d,x,y,z,m){const geo=new T.BoxGeometry(w,h,d);const me=new T.Mesh(geo,m||mWhite);me.position.set(x,y+h/2,z);me.castShadow=me.receiveShadow=true;g.add(me);const ed=new T.LineSegments(new T.EdgesGeometry(geo),eMat);ed.position.copy(me.position);g.add(ed);return me}
+function floors(g,w,d,n,fh,x,z){box(g,w,n*fh,d,x,0,z);for(let i=1;i<n;i+=1){const ln=new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(w+.02,.001,d+.02)),eMat);ln.position.set(x,i*fh,z);g.add(ln)}}
+function grp(id,x,z){const g=new T.Group();g.position.set(x,0,z);g.userData.id=id;scene.add(g);groups[id]=g;return g}
+/* plinth */
+const plinth=new T.Mesh(new T.BoxGeometry(84,1.2,60),mBase);plinth.position.y=-.6;plinth.receiveShadow=true;scene.add(plinth);
+const grid=new T.GridHelper(84,42,0xbdbdbd,0xdedede);grid.position.y=.01;scene.add(grid);
+/* EAH: 9 towers + 3 parking */
+{const g=grp('eah',-26,-12);for(let i=0;i<9;i++){const x=(i%3)*5.2-5.2,z=Math.floor(i/3)*5.2-5.2;floors(g,3,3,21,.38,x,z);box(g,1.4,.6,1.4,x,21*.38,z)}for(let k=0;k<3;k++)floors(g,4.2,3,7,.38,10,k*5.2-5.2)}
+/* Arba Minch stadium */
+{const g=grp('ams',4,-14);const pitch=new T.Mesh(new T.PlaneGeometry(10,6.6),new T.MeshStandardMaterial({color:0xcfd8c8,roughness:1}));pitch.rotation.x=-Math.PI/2;pitch.position.y=.05;pitch.receiveShadow=true;g.add(pitch);
+const track=new T.Mesh(new T.RingGeometry(5.6,7.2,64),mEarth);track.rotation.x=-Math.PI/2;track.scale.set(1,.72,1);track.position.y=.04;g.add(track);
+const pts=[];for(let i=0;i<=8;i++){const t=i/8;pts.push(new T.Vector2(7.6+t*4.2,t*3.2))}pts.push(new T.Vector2(11.8,3.4),new T.Vector2(7.6,3.4));
+const bowl=new T.Mesh(new T.LatheGeometry(pts,72),mWhite);bowl.scale.set(1,1,.76);bowl.castShadow=bowl.receiveShadow=true;g.add(bowl);
+const roofG=new T.TorusGeometry(10.6,.5,8,48,Math.PI*.7);[0,Math.PI].forEach(r=>{const roof=new T.Mesh(roofG,mWhite);roof.rotation.set(Math.PI/2,0,r+Math.PI*.15);roof.scale.set(1,.76,1);roof.position.y=5.2;roof.castShadow=true;g.add(roof);const canopy=new T.Mesh(new T.CylinderGeometry(11.6,11.6,.25,48,1,true,r+Math.PI*.15,Math.PI*.7),mWhite);canopy.scale.set(1,1,.76);canopy.position.y=5.4;g.add(canopy)});
+for(let i=0;i<14;i++){const a=i/14*Math.PI*2;box(g,.35,5.4,.35,Math.cos(a)*11.6,0,Math.sin(a)*11.6*.76)}}
+/* Bishoftu earthworks: runway embankment */
+{const g=grp('bia',2,17);const sh=new T.Shape();sh.moveTo(-4,0);sh.lineTo(-2.6,1.1);sh.lineTo(2.6,1.1);sh.lineTo(4,0);sh.lineTo(-4,0);
+const em=new T.Mesh(new T.ExtrudeGeometry(sh,{depth:56,bevelEnabled:false}),mEarth);em.rotation.y=Math.PI/2;em.position.set(-28,0,0);em.castShadow=em.receiveShadow=true;g.add(em);
+const rw=new T.Mesh(new T.BoxGeometry(56,.06,2.6),new T.MeshStandardMaterial({color:0x3a3a3a,roughness:.9}));rw.position.y=1.13;g.add(rw);
+for(let i=0;i<14;i++){const m=new T.Mesh(new T.BoxGeometry(1.6,.05,.25),mWhite);m.userData.base=mWhite;m.position.set(-26+i*4,1.17,0);g.add(m)}
+for(let i=0;i<7;i++){const c=new T.Mesh(new T.ConeGeometry(1.2+i%3*.4,1+i%2*.8,7),mEarth);c.position.set(-24+i*8,.5,6+i%2*1.6);c.castShadow=true;g.add(c)}
+for(let i=0;i<5;i++)box(g,1.4,.7,.8,-18+i*9,0,-5,mRed)}
+/* ECX tower */
+{const g=grp('ecx',22,-2);floors(g,4.4,4.4,24,.42,0,0);box(g,5.6,1.2,5.6,0,0,0);box(g,2,1.6,2,0,24*.42,0)}
+/* DARA 4B+G+21 */
+{const g=grp('dara',29,-16);floors(g,5,3.6,22,.4,0,0);box(g,7,1.4,5.4,0,0,0)}
+/* SDA 2B+G+15 */
+{const g=grp('sda',15,-22);floors(g,4.6,3.4,16,.4,0,0);box(g,1.8,1.2,1.8,0,16*.4,0)}
+/* ERA lake */
+{const g=grp('era',-12,4);const lk=new T.Mesh(new T.CircleGeometry(6,48),mWater);lk.rotation.x=-Math.PI/2;lk.scale.set(1.35,1,1);lk.position.y=.06;g.add(lk);const sh=new T.Mesh(new T.RingGeometry(6,6.8,48),mEarth);sh.rotation.x=-Math.PI/2;sh.scale.set(1.35,1,1);sh.position.y=.07;g.add(sh);
+for(let i=0;i<4;i++){const s=new T.Mesh(new T.CylinderGeometry(3.4+i*.8,3.4+i*.8,.3,32,1,false,Math.PI*1.15,Math.PI*.7),mWhite);s.position.set(9.6,i*.3,1);s.castShadow=true;g.add(s)}box(g,3.6,1.1,2.4,9,0,-5);for(let i=0;i<10;i++){const tr=new T.Mesh(new T.SphereGeometry(.6,10,8),new T.MeshStandardMaterial({color:0xbfcab4,roughness:1}));tr.position.set(-9+i*1.9,.9,-6.5+Math.sin(i)*.6);tr.castShadow=true;g.add(tr)}}
+/* MOF */
+{const g=grp('mof',-30,6);floors(g,8,4,5,.42,0,0);floors(g,4,7,3,.42,7,1.5);box(g,2.6,.3,1.2,-6,0,5,mRed)}
+/* Technical room */
+{const g=grp('ten',34,6);box(g,4,1.6,3,0,0,0);for(let i=0;i<6;i++)box(g,.08,1.2,.4,-1.6+i*.64,.2,1.6)}
+/* DBoE */
+{const g=grp('dbe',26,10);floors(g,5,3.4,6,.42,0,0)}
+/* GIE */
+{const g=grp('gie',36,-6);floors(g,4,3,3,.42,0,0);box(g,1.4,.8,1.4,4,0,2.6)}
+/* NBE campus */
+{const g=grp('nbe',-27,-25);const roof=(x,z,w,d,h)=>{box(g,w,h,d,x,0,z);const r=new T.Mesh(new T.ConeGeometry(Math.hypot(w,d)/2*1.02,.9,4,1),mWhite);r.rotation.y=Math.PI/4;r.scale.set(w/Math.hypot(w,d)*1.414,1,d/Math.hypot(w,d)*1.414);r.position.set(x,h+.45,z);r.castShadow=true;g.add(r)};
+for(let i=0;i<19;i++)roof(-8+(i%10)*1.9,-3+Math.floor(i/10)*2.6,1.4,2,.8);for(let i=0;i<5;i++)roof(-8+i*1.9,3,1.4,2,.8);roof(4.5,2.6,4,3,1.6);roof(9,2.6,3.6,3.6,2);box(g,6,1.6,2.2,7,0,-3);box(g,2,1.6,4,11.5,0,-2.5);
+const fld=new T.Mesh(new T.PlaneGeometry(6,3.6),new T.MeshStandardMaterial({color:0xcfd8c8,roughness:1}));fld.rotation.x=-Math.PI/2;fld.position.set(14,.05,4);g.add(fld)}
+/* Parliament Library */
+{const g=grp('parl',-36,23);const pit=new T.Mesh(new T.BoxGeometry(9,.1,7),mEarth);pit.position.y=.03;g.add(pit);floors(g,7,5,5,.5,0,0);box(g,2.4,.8,2.4,0,2.5,0)}
+/* NBE II hall */
+{const g=grp('nbe2',-4,-27);const hall=new T.Mesh(new T.CylinderGeometry(5,5,2.4,24,1,false,Math.PI*.15,Math.PI*.7),mWhite);hall.position.y=1.2;hall.castShadow=true;g.add(hall);box(g,5.4,2.8,2,0,0,-1.2)}
+/* EEU cafeteria */
+{const g=grp('eeu',12,8);box(g,5,1.4,3.4,0,0,0);const sk=new T.Mesh(new T.BoxGeometry(2.4,.5,1.4),mWater);sk.position.set(0,1.65,0);g.add(sk)}
+/* Jimma terminal */
+{const g=grp('jim',35,23);box(g,10,1.8,3.4,0,0,0);const rf=new T.Mesh(new T.CylinderGeometry(6,6,4.2,32,1,true,-Math.PI*.22,Math.PI*.44),mWhite);rf.rotation.set(0,0,Math.PI/2);rf.scale.set(.25,1,1);rf.position.set(0,.4,0);g.add(rf);const ap=new T.Mesh(new T.BoxGeometry(12,.05,4),new T.MeshStandardMaterial({color:0x5a5a5a,roughness:.9}));ap.position.set(0,.03,-4.5);g.add(ap)}
+/* Immigration HQ */
+{const g=grp('ics',-38,-8);floors(g,4,3.4,9,.42,0,0);box(g,6,1.2,5,0,0,0)}
+/* recolour selected */
+function tint(){for(const id in groups){groups[id].traverse(o=>{if(o.isMesh&&!o.userData.base)o.userData.base=o.material;if(o.isMesh&&o.userData.base===mWhite)o.material=id===cur?mRed:mWhite})}}
+/* camera orbit */
+let theta=-.55,phi=.9,dist=82,tgt=new T.Vector3(2,0,-1),goal=tgt.clone(),dGoal=82,drag=null,idle=0;
+const focusD={nbe2:20,jim:30,ics:22,eeu:18,nbe:30,parl:22,eah:34,ams:34,bia:52,ecx:26,dara:26,sda:24,era:34,mof:26,ten:18,dbe:18,gie:18};
+select=id=>{cur=id;sheet();tint();const g=groups[id];goal.set(g.position.x+(id==='eah'?2:0),2,g.position.z);dGoal=focusD[id]||30};
+cv.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,t:theta,p:phi};cv.setPointerCapture(e.pointerId)});
+cv.addEventListener('pointermove',e=>{if(!drag)return;theta=drag.t-(e.clientX-drag.x)*.006;phi=Math.min(1.35,Math.max(.35,drag.p-(e.clientY-drag.y)*.004));idle=0});
+cv.addEventListener('pointerup',()=>{drag=null});
+cv.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();dGoal=Math.min(110,Math.max(16,dGoal*(1+e.deltaY*.001)))},{passive:false});
+/* click a model */
+const ray=new T.Raycaster(),mp=new T.Vector2();let down=0;cv.addEventListener('pointerdown',e=>{down=e.clientX+e.clientY});
+cv.addEventListener('click',e=>{if(Math.abs(e.clientX+e.clientY-down)>6)return;const r=cv.getBoundingClientRect();mp.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(mp,cam);const hit=ray.intersectObjects(Object.values(groups),true)[0];if(hit){let o=hit.object;while(o&&!o.userData.id)o=o.parent;if(o)select(o.userData.id)}});
+function size(){const w=cv.clientWidth,h=cv.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+const glObs=new ResizeObserver(size);glObs.observe(cv);
+function themeGL(){const d=dark();mBase.color.set(d?0x1c1c1c:0xeeeeee);mWhite.color.set(d?0xdedede:0xfafafa);eMat.color.set(d?0x000000:0x111111);hemi.intensity=d?.55:.75;grid.material.opacity=d?.25:1;grid.material.transparent=true}
+themeGL();new MutationObserver(themeGL).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});matchMedia('(prefers-color-scheme: dark)').addEventListener('change',themeGL);
+cur='nbe';sheet();tint();
+let last=performance.now();
+function loop(t){const dt=Math.min(.05,(t-last)/1000);last=t;idle+=dt;if(!reduce&&!drag&&idle>2)theta+=dt*.06;
+tgt.lerp(goal,reduce?1:.05);dist+=(dGoal-dist)*(reduce?1:.05);
+cam.position.set(tgt.x+dist*Math.sin(phi)*Math.sin(theta),tgt.y+dist*Math.cos(phi),tgt.z+dist*Math.sin(phi)*Math.cos(theta));cam.lookAt(tgt);
+renderer.render(scene,cam);requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+/* BIM viewer */
+{const bc=$('#bim');let started=false;const go=()=>{if(started)return;started=true;
+const r2=new T.WebGLRenderer({canvas:bc,antialias:true,alpha:true});r2.setPixelRatio(Math.min(devicePixelRatio,2));const s2=new T.Scene();s2.add(new T.HemisphereLight(0xffffff,0x8a8a8a,.85));const l2=new T.DirectionalLight(0xffffff,.75);l2.position.set(-1,-1.6,2.6);s2.add(l2);
+const c2=new T.PerspectiveCamera(32,1,1,3000);c2.up.set(0,0,1);let th=-2.3,ph=1.0,dd=140,dr=null,ct=new T.Vector3();
+const mats={struct:mWhite,finish:new T.MeshStandardMaterial({color:0xd9d9d9,roughness:.9}),glass:new T.MeshStandardMaterial({color:0x8fa6b8,roughness:.2,metalness:.2}),other:new T.MeshStandardMaterial({color:0xededed,roughness:.9})};
+fetch('model.json').then(r=>r.json()).then(m=>{const bs=atob(m.data),u8=new Uint8Array(bs.length);for(let i=0;i<bs.length;i++)u8[i]=bs.charCodeAt(i);const b=u8.buffer;const mn=m.min,mx=m.max;
+for(const k in m.parts){const p=m.parts[k];const q=new Uint16Array(b,p.v[0],p.v[1]*3);const pos=new Float32Array(q.length);for(let i=0;i<q.length;i++){const a=i%3;pos[i]=mn[a]+q[i]/65535*(mx[a]-mn[a])}
+const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(pos,3));g.setIndex(new T.BufferAttribute(new Uint32Array(b,p.i[0],p.i[1]),1));g.computeVertexNormals();const me=new T.Mesh(g,mats[k]||mats.other);me.material.side=T.DoubleSide;me.material.flatShading=true;s2.add(me);if(k!=='glass'){const e=new T.LineSegments(new T.EdgesGeometry(g,35),eMat);s2.add(e)}}
+const f=m.focus;ct.set((f[0][0]+f[1][0])/2,(f[0][1]+f[1][1])/2,(f[0][2]+f[1][2])/3);dd=Math.max(f[1][0]-f[0][0],f[1][1]-f[0][1])*1.25;$('#bimload').remove()}).catch(()=>{$('#bimload').textContent='The model could not load here.'});
+const sz=()=>{const w=bc.clientWidth,h=bc.clientHeight;r2.setSize(w,h,false);c2.aspect=w/h;c2.updateProjectionMatrix()};const bo=new ResizeObserver(sz);bo.observe(bc);
+bc.addEventListener('pointerdown',e=>{dr={x:e.clientX,y:e.clientY,t:th,p:ph};bc.setPointerCapture(e.pointerId)});bc.addEventListener('pointermove',e=>{if(!dr)return;th=dr.t-(e.clientX-dr.x)*.006;ph=Math.min(1.4,Math.max(.3,dr.p-(e.clientY-dr.y)*.004))});bc.addEventListener('pointerup',()=>{dr=null});
+let lt=performance.now();const lp=t=>{const k=Math.max(1,1.25/Math.max(.4,c2.aspect));const D=dd*k;const dt=Math.min(.05,(t-lt)/1000);lt=t;if(!reduce&&!dr)th+=dt*.08;c2.position.set(ct.x+D*Math.sin(ph)*Math.cos(th),ct.y+D*Math.sin(ph)*Math.sin(th),ct.z+D*Math.cos(ph));c2.lookAt(ct);r2.render(s2,c2);requestAnimationFrame(lp)};requestAnimationFrame(lp)};
+const vo=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){go();vo.disconnect()}},{rootMargin:'300px'});vo.observe(bc)}
+}
+}
+</script>
+</body>
+</html>
